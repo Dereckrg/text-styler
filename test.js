@@ -31,3 +31,6 @@ typer.bgBlue();
 typer.dim('Almost doneeeeee');
 typer.underscore().blue('Ending now');
 console.log(typer.end());
+
+console.log(textStyler.background.blue('VIA .background'));
+console.log(textStyler.background.blue().dim().red('VIA .background'));

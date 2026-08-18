@@ -5,6 +5,8 @@ const onSetForeground = Symbol('onSetForeground');
 const onSetBackground = Symbol('onSetBackground');
 
 class TextStyler {
+	background = new Background();
+
 	[onSetMode](mode, text) {
 		if (text === undefined) {
 			return new TextStylerChain()[mode]();
@@ -86,6 +88,28 @@ class TextStylerChain extends TextStyler {
 	#returnText(text = '') {
 		return `${this.#mode}${this.#background}${this.#foreground}${text}${reference.reset}`;
 	}
+}
+
+class Background {
+	#onSetBackground(color, text) {
+		if (text === undefined) {
+			return new TextStylerChain()[
+				`bg${color[0].toUpperCase() + color.slice(1)}`
+			]();
+		} else {
+			return `${reference.background[color]}${text}${reference.reset}`;
+		}
+	}
+
+	black = (text) => this.#onSetBackground('black', text);
+	blue = (text) => this.#onSetBackground('blue', text);
+	cyan = (text) => this.#onSetBackground('cyan', text);
+	gray = (text) => this.#onSetBackground('gray', text);
+	green = (text) => this.#onSetBackground('green', text);
+	magenta = (text) => this.#onSetBackground('magenta', text);
+	red = (text) => this.#onSetBackground('red', text);
+	white = (text) => this.#onSetBackground('white', text);
+	yellow = (text) => this.#onSetBackground('yellow', text);
 }
 
 class Typer extends TextStyler {

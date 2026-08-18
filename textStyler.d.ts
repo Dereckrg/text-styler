@@ -18,6 +18,8 @@ export type TextMode =
 	| 'hidden';
 
 class TextStyler {
+	background: Background;
+
 	blink(): TextStylerChain;
 	blink(text: string): string;
 	bright(): TextStylerChain;
@@ -71,6 +73,27 @@ class TextStyler {
 }
 
 class TextStylerChain extends TextStyler {}
+
+class Background {
+	black: () => TextStylerChain;
+	black: (text: string) => string;
+	blue: () => TextStylerChain;
+	blue: (text: string) => string;
+	cyan: () => TextStylerChain;
+	cyan: (text: string) => string;
+	gray: () => TextStylerChain;
+	gray: (text: string) => string;
+	green: () => TextStylerChain;
+	green: (text: string) => string;
+	magenta: () => TextStylerChain;
+	magenta: (text: string) => string;
+	red: () => TextStylerChain;
+	red: (text: string) => string;
+	white: () => TextStylerChain;
+	white: (text: string) => string;
+	yellow: () => TextStylerChain;
+	yellow: (text: string) => string;
+}
 
 class Typer extends TextStyler {
 	blink(): Typer;
