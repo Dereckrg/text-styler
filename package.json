@@ -1,0 +1,9 @@
+{
+	"name": "text-styler",
+	"version": "1.0.0",
+	"description": "A library to style terminal text",
+	"license": "ISC",
+	"author": "DRG",
+	"type": "module",
+	"main": "textStyler.js"
+}
