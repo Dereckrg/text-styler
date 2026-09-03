@@ -1,6 +1,8 @@
 import terminalStyleReference from './terminalStyleReference.js';
-import textStyler from './textStyler.js';
+import { TextStyler, Typer } from './TextStyler.js';
 
-export { terminalStyleReference };
+const textStyler = new TextStyler();
+
+export { terminalStyleReference, Typer };
 
 export default textStyler;

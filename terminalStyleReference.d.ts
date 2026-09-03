@@ -1,4 +1,4 @@
-type TerminalStyleReference = {
+export type TerminalStyleReference = {
 	reset: string;
 	mode: {
 		bright: string;
@@ -32,6 +32,6 @@ type TerminalStyleReference = {
 	};
 };
 
-const terminalStyleReference: TerminalStyleReference;
+declare const terminalStyleReference: TerminalStyleReference;
 
 export default terminalStyleReference;

@@ -1,22 +1,3 @@
-export type TextColor =
-	| 'black'
-	| 'red'
-	| 'green'
-	| 'yellow'
-	| 'blue'
-	| 'magenta'
-	| 'cyan'
-	| 'white'
-	| 'gray';
-
-export type TextMode =
-	| 'bright'
-	| 'dim'
-	| 'underscore'
-	| 'blink'
-	| 'reverse'
-	| 'hidden';
-
 class TextStyler {
 	background: Background;
 
@@ -75,24 +56,24 @@ class TextStyler {
 class TextStylerChain extends TextStyler {}
 
 class Background {
-	black: () => TextStylerChain;
-	black: (text: string) => string;
-	blue: () => TextStylerChain;
-	blue: (text: string) => string;
-	cyan: () => TextStylerChain;
-	cyan: (text: string) => string;
-	gray: () => TextStylerChain;
-	gray: (text: string) => string;
-	green: () => TextStylerChain;
-	green: (text: string) => string;
-	magenta: () => TextStylerChain;
-	magenta: (text: string) => string;
-	red: () => TextStylerChain;
-	red: (text: string) => string;
-	white: () => TextStylerChain;
-	white: (text: string) => string;
-	yellow: () => TextStylerChain;
-	yellow: (text: string) => string;
+	black(): TextStylerChain;
+	black(text: string): string;
+	blue(): TextStylerChain;
+	blue(text: string): string;
+	cyan(): TextStylerChain;
+	cyan(text: string): string;
+	gray(): TextStylerChain;
+	gray(text: string): string;
+	green(): TextStylerChain;
+	green(text: string): string;
+	magenta(): TextStylerChain;
+	magenta(text: string): string;
+	red(): TextStylerChain;
+	red(text: string): string;
+	white(): TextStylerChain;
+	white(text: string): string;
+	yellow(): TextStylerChain;
+	yellow(text: string): string;
 }
 
 class Typer extends TextStyler {
@@ -152,8 +133,4 @@ class Typer extends TextStyler {
 	end(): string;
 }
 
-declare const textStyler: TextStyler & {
-	createTyper: () => Typer;
-};
-
-export default textStyler;
+export { TextStyler, Typer };

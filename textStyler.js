@@ -1,3 +1,4 @@
+// @ts-nocheck
 import reference from './terminalStyleReference.js';
 
 const onSetMode = Symbol('onSetMode');
@@ -149,7 +150,4 @@ class Typer extends TextStyler {
 	}
 }
 
-const textStyler = new TextStyler();
-textStyler.createTyper = () => new Typer();
-
-export default textStyler;
+export { TextStyler, Typer };

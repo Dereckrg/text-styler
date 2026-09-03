@@ -1,4 +1,4 @@
-import textStyler from './textStyler.js';
+import textStyler, { Typer } from './index.js';
 
 const x = textStyler.blink();
 
@@ -14,7 +14,7 @@ console.log(textStyler.bright().blue('Bright blue text'));
 console.log(textStyler.bright().bgBlack().blue('Bright blue text'));
 console.log(textStyler.black().underscore().bgBlack('Some text here'));
 
-const typer = textStyler.createTyper();
+const typer = new Typer();
 typer.bright().blue('THIS IS A TYPER WIRTING').linebreak();
 typer
 	.bgBlack()

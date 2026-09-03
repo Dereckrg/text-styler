@@ -1,3 +1,6 @@
+import terminalStyleReference from './terminalStyleReference';
+import { TextStyler, Typer } from './TextStyler';
+
 export type TextColor =
 	| 'black'
 	| 'red'
@@ -16,3 +19,13 @@ export type TextMode =
 	| 'blink'
 	| 'reverse'
 	| 'hidden';
+
+	
+export {
+	terminalStyleReference,
+	Typer
+};
+
+declare const textStyler: TextStyler = new TextStyler();
+
+export default textStyler;
