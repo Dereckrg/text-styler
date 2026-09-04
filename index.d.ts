@@ -12,6 +12,18 @@ export type TextColor =
 	| 'white'
 	| 'gray';
 
+export type BackgroundColor =
+	| 'black'
+	| 'red'
+	| 'green'
+	| 'yellow'
+	| 'blue'
+	| 'magenta'
+	| 'cyan'
+	| 'white'
+	| 'gray'
+	| 'transparent';
+
 export type TextMode =
 	| 'bright'
 	| 'dim'
