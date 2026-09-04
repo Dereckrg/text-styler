@@ -29,6 +29,7 @@ export type TerminalStyleReference = {
 		cyan: string;
 		white: string;
 		gray: string;
+		transparent: string;
 	};
 };
 
