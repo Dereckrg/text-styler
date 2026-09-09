@@ -38,3 +38,23 @@ console.log(textStyler.background.blue().dim().red('VIA .background'));
 const styledText = textStyler.background.blue().dim().red('Style Text');
 console.log(styledText);
 console.log(textStyler.removeStyle(styledText));
+
+console.log(
+	textStyler.applyStyle({
+		text: 'Applying style to a text',
+		textColor: 'blue',
+		bgColor: 'green',
+		mode: 'bright'
+	})
+);
+
+console.log('**************');
+
+console.log(
+	textStyler.applyStyle({
+		text: 'Applying style to a text',
+		textColor: 'yellow',
+		// bgColor: 'yellow',
+		mode: ['bright', 'underscore']
+	})
+);

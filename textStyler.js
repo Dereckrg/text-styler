@@ -68,6 +68,29 @@ class TextStyler {
 	bgWhite = (text) => this[onSetBackground]('white', text);
 	bgYellow = (text) => this[onSetBackground]('yellow', text);
 
+	applyStyle({ text = '', textColor = '', bgColor = '', mode = '' } = {}) {
+		let textMode;
+
+		if (mode) {
+			if (Array.isArray(mode)) {
+				textMode = mode.reduce((modes, mode) => {
+					return modes + (reference.mode[mode] || '');
+				}, '');
+			} else {
+				textMode = reference.mode[mode] || '';
+			}
+		}
+
+		return (
+			reference.reset +
+			(reference.foreground[textColor] || '') +
+			(reference.background[bgColor] || '') +
+			textMode +
+			text +
+			reference.reset
+		);
+	}
+
 	removeStyle(text = '') {
 		styleStrings.forEach((styleString) => {
 			text = text.replaceAll(styleString, '');

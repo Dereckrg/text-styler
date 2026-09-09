@@ -1,3 +1,5 @@
+import { BackgroundColor, TextColor, TextMode } from './index';
+
 class TextStyler {
 	background: Background;
 
@@ -51,6 +53,13 @@ class TextStyler {
 	bgWhite(text: string): string;
 	bgYellow(): TextStylerChain;
 	bgYellow(text: string): string;
+
+	applyStyle(options: {
+		text: string;
+		textColor?: TextColor;
+		bgColor?: BackgroundColor;
+		mode?: TextMode | TextMode[];
+	}): string;
 
 	removeStyle(text: string): string;
 }
