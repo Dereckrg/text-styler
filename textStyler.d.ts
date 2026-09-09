@@ -51,6 +51,8 @@ class TextStyler {
 	bgWhite(text: string): string;
 	bgYellow(): TextStylerChain;
 	bgYellow(text: string): string;
+
+	removeStyle(text: string): string;
 }
 
 class TextStylerChain extends TextStyler {}

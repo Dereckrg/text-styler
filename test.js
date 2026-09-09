@@ -34,3 +34,7 @@ console.log(typer.end());
 
 console.log(textStyler.background.blue('VIA .background'));
 console.log(textStyler.background.blue().dim().red('VIA .background'));
+
+const styledText = textStyler.background.blue().dim().red('Style Text');
+console.log(styledText);
+console.log(textStyler.removeStyle(styledText));

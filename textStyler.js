@@ -5,6 +5,13 @@ const onSetMode = Symbol('onSetMode');
 const onSetForeground = Symbol('onSetForeground');
 const onSetBackground = Symbol('onSetBackground');
 
+const styleStrings = [
+	reference.reset,
+	...Object.values(reference.mode),
+	...Object.values(reference.background),
+	...Object.values(reference.foreground)
+];
+
 class TextStyler {
 	background = new Background();
 
@@ -60,6 +67,13 @@ class TextStyler {
 	bgRed = (text) => this[onSetBackground]('red', text);
 	bgWhite = (text) => this[onSetBackground]('white', text);
 	bgYellow = (text) => this[onSetBackground]('yellow', text);
+
+	removeStyle(text = '') {
+		styleStrings.forEach((styleString) => {
+			text = text.replaceAll(styleString, '');
+		});
+		return text;
+	}
 }
 
 class TextStylerChain extends TextStyler {
