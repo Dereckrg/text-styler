@@ -1,35 +1,37 @@
 const terminalStyleReference = {
 	reset: '\x1b[0m',
 	mode: {
+		blink: '\x1b[5m',
 		bright: '\x1b[1m',
 		dim: '\x1b[2m',
-		underscore: '\x1b[4m',
-		blink: '\x1b[5m',
+		hidden: '\x1b[8m',
+		none: '',
 		reverse: '\x1b[7m',
-		hidden: '\x1b[8m'
+		underscore: '\x1b[4m'
 	},
 	foreground: {
 		black: '\x1b[30m',
-		red: '\x1b[31m',
-		green: '\x1b[32m',
-		yellow: '\x1b[33m',
 		blue: '\x1b[34m',
-		magenta: '\x1b[35m',
 		cyan: '\x1b[36m',
+		default: '',
+		gray: '\x1b[90m',
+		green: '\x1b[32m',
+		magenta: '\x1b[35m',
+		red: '\x1b[31m',
 		white: '\x1b[37m',
-		gray: '\x1b[90m'
+		yellow: '\x1b[33m'
 	},
 	background: {
 		black: '\x1b[40m',
-		red: '\x1b[41m',
-		green: '\x1b[42m',
-		yellow: '\x1b[43m',
 		blue: '\x1b[44m',
-		magenta: '\x1b[45m',
 		cyan: '\x1b[46m',
-		white: '\x1b[47m',
 		gray: '\x1b[100m',
-		transparent: ''
+		green: '\x1b[42m',
+		magenta: '\x1b[45m',
+		red: '\x1b[41m',
+		transparent: '',
+		white: '\x1b[47m',
+		yellow: '\x1b[43m'
 	}
 };
 

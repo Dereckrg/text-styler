@@ -69,7 +69,7 @@ class TextStyler {
 	bgYellow = (text) => this[onSetBackground]('yellow', text);
 
 	applyStyle({ text = '', textColor = '', bgColor = '', mode = '' } = {}) {
-		let textMode;
+		let textMode = '';
 
 		if (mode) {
 			if (Array.isArray(mode)) {

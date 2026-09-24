@@ -3,41 +3,39 @@ import { TextStyler, Typer } from './TextStyler';
 
 export type TextColor =
 	| 'black'
-	| 'red'
-	| 'green'
-	| 'yellow'
 	| 'blue'
-	| 'magenta'
 	| 'cyan'
+	| 'default'
+	| 'gray'
+	| 'green'
+	| 'magenta'
+	| 'red'
 	| 'white'
-	| 'gray';
+	| 'yellow';
 
 export type BackgroundColor =
 	| 'black'
-	| 'red'
-	| 'green'
-	| 'yellow'
 	| 'blue'
-	| 'magenta'
 	| 'cyan'
-	| 'white'
 	| 'gray'
-	| 'transparent';
+	| 'green'
+	| 'magenta'
+	| 'red'
+	| 'transparent'
+	| 'white'
+	| 'yellow';
 
 export type TextMode =
+	| 'blink'
 	| 'bright'
 	| 'dim'
-	| 'underscore'
-	| 'blink'
+	| 'hidden'
+	| 'none'
 	| 'reverse'
-	| 'hidden';
+	| 'underscore';
 
-	
-export {
-	terminalStyleReference,
-	Typer
-};
+export { terminalStyleReference, Typer };
 
-declare const textStyler: TextStyler = new TextStyler();
+declare const textStyler: TextStyler;
 
 export default textStyler;

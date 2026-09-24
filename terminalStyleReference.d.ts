@@ -1,34 +1,36 @@
 export type TerminalStyleReference = {
 	reset: string;
 	mode: {
+		blink: string;
 		bright: string;
 		dim: string;
-		underscore: string;
-		blink: string;
-		reverse: string;
 		hidden: string;
+		none: string;
+		reverse: string;
+		underscore: string;
 	};
 	foreground: {
 		black: string;
-		red: string;
-		green: string;
-		yellow: string;
 		blue: string;
-		magenta: string;
 		cyan: string;
-		white: string;
+		default: string;
 		gray: string;
+		green: string;
+		magenta: string;
+		red: string;
+		white: string;
+		yellow: string;
 	};
 	background: {
 		black: string;
-		red: string;
-		green: string;
-		yellow: string;
 		blue: string;
-		magenta: string;
 		cyan: string;
-		white: string;
 		gray: string;
+		green: string;
+		magenta: string;
+		red: string;
+		white: string;
+		yellow: string;
 		transparent: string;
 	};
 };
