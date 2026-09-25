@@ -1,7 +1,61 @@
 import { BackgroundColor, TextColor, TextMode } from './index';
 
+class HighIntensityColor<T> {
+	constructor(setColorFunc: (color: string, text?: string) => string | T);
+
+	black(): T;
+	black(text: string): string;
+	blue(): T;
+	blue(text: string): string;
+	cyan(): T;
+	cyan(text: string): string;
+	gray(): T;
+	gray(text: string): string;
+	green(): T;
+	green(text: string): string;
+	magenta(): T;
+	magenta(text: string): string;
+	red(): T;
+	red(text: string): string;
+	white(): T;
+	white(text: string): string;
+	yellow(): T;
+	yellow(text: string): string;
+}
+
+class Background<T> {
+	constructor(setBackgroundFunc: (color: string, text?: string) => string | T);
+
+	intense: HighIntensityColor<T>;
+
+	black(): T;
+	black(text: string): string;
+	blue(): T;
+	blue(text: string): string;
+	cyan(): T;
+	cyan(text: string): string;
+	gray(): T;
+	gray(text: string): string;
+	green(): T;
+	green(text: string): string;
+	magenta(): T;
+	magenta(text: string): string;
+	red(): T;
+	red(text: string): string;
+	white(): T;
+	white(text: string): string;
+	yellow(): T;
+	yellow(text: string): string;
+
+	color(color: number): TextStylerChain;
+	color(red: number, green: number, blue: number): TextStylerChain;
+	color(text: string, color: number): string;
+	color(text: string, red: number, green: number, blue: number): string;
+}
+
 class TextStyler {
-	background: Background;
+	background: Background<TextStylerChain>;
+	intense: HighIntensityColor<TextStylerChain>;
 
 	blink(): TextStylerChain;
 	blink(text: string): string;
@@ -9,10 +63,16 @@ class TextStyler {
 	bright(text: string): string;
 	dim(): TextStylerChain;
 	dim(text: string): string;
+	doubleUnderscore(): TextStylerChain;
+	doubleUnderscore(text: string): string;
 	hidden(): TextStylerChain;
 	hidden(text: string): string;
+	italic(): TextStylerChain;
+	italic(text: string): string;
 	reverse(): TextStylerChain;
 	reverse(text: string): string;
+	strikethrough(): TextStylerChain;
+	strikethrough(text: string): string;
 	underscore(): TextStylerChain;
 	underscore(text: string): string;
 
@@ -35,24 +95,10 @@ class TextStyler {
 	yellow(): TextStylerChain;
 	yellow(text: string): string;
 
-	bgBlack(): TextStylerChain;
-	bgBlack(text: string): string;
-	bgBlue(): TextStylerChain;
-	bgBlue(text: string): string;
-	bgCyan(): TextStylerChain;
-	bgCyan(text: string): string;
-	bgGray(): TextStylerChain;
-	bgGray(text: string): string;
-	bgGreen(): TextStylerChain;
-	bgGreen(text: string): string;
-	bgMagenta(): TextStylerChain;
-	bgMagenta(text: string): string;
-	bgRed(): TextStylerChain;
-	bgRed(text: string): string;
-	bgWhite(): TextStylerChain;
-	bgWhite(text: string): string;
-	bgYellow(): TextStylerChain;
-	bgYellow(text: string): string;
+	color(color: number): TextStylerChain;
+	color(red: number, green: number, blue: number): TextStylerChain;
+	color(text: string, color: number): string;
+	color(text: string, red: number, green: number, blue: number): string;
 
 	applyStyle(options: {
 		text: string;
@@ -66,28 +112,10 @@ class TextStyler {
 
 class TextStylerChain extends TextStyler {}
 
-class Background {
-	black(): TextStylerChain;
-	black(text: string): string;
-	blue(): TextStylerChain;
-	blue(text: string): string;
-	cyan(): TextStylerChain;
-	cyan(text: string): string;
-	gray(): TextStylerChain;
-	gray(text: string): string;
-	green(): TextStylerChain;
-	green(text: string): string;
-	magenta(): TextStylerChain;
-	magenta(text: string): string;
-	red(): TextStylerChain;
-	red(text: string): string;
-	white(): TextStylerChain;
-	white(text: string): string;
-	yellow(): TextStylerChain;
-	yellow(text: string): string;
-}
-
 class Typer extends TextStyler {
+	background: Background<Typer>;
+	intense: HighIntensityColor<Typer>;
+
 	blink(): Typer;
 	blink(text: string): Typer;
 	bright(): Typer;
@@ -119,25 +147,6 @@ class Typer extends TextStyler {
 	white(text: string): Typer;
 	yellow(): Typer;
 	yellow(text: string): Typer;
-
-	bgBlack(): Typer;
-	bgBlack(text: string): Typer;
-	bgBlue(): Typer;
-	bgBlue(text: string): Typer;
-	bgCyan(): Typer;
-	bgCyan(text: string): Typer;
-	bgGray(): Typer;
-	bgGray(text: string): Typer;
-	bgGreen(): Typer;
-	bgGreen(text: string): Typer;
-	bgMagenta(): Typer;
-	bgMagenta(text: string): Typer;
-	bgRed(): Typer;
-	bgRed(text: string): Typer;
-	bgWhite(): Typer;
-	bgWhite(text: string): Typer;
-	bgYellow(): Typer;
-	bgYellow(text: string): Typer;
 
 	linebreak(): Typer;
 	reset(text = ''): Typer;

@@ -2,36 +2,57 @@ import terminalStyleReference from './terminalStyleReference';
 import { TextStyler, Typer } from './TextStyler';
 
 export type TextColor =
-	| 'black'
-	| 'blue'
-	| 'cyan'
 	| 'default'
+	| 'black'
+	| 'brightBlack'
+	| 'blue'
+	| 'brightBlue'
+	| 'cyan'
+	| 'brightCyan'
 	| 'gray'
+	| 'brightGray'
 	| 'green'
+	| 'brightGreen'
 	| 'magenta'
+	| 'brightMagenta'
 	| 'red'
+	| 'brightRed'
 	| 'white'
-	| 'yellow';
+	| 'brightWhite'
+	| 'yellow'
+	| 'brightYellow';
 
 export type BackgroundColor =
-	| 'black'
-	| 'blue'
-	| 'cyan'
-	| 'gray'
-	| 'green'
-	| 'magenta'
-	| 'red'
 	| 'transparent'
+	| 'black'
+	| 'brightBlack'
+	| 'blue'
+	| 'brightBlue'
+	| 'cyan'
+	| 'brightCyan'
+	| 'gray'
+	| 'brightGray'
+	| 'green'
+	| 'brightGreen'
+	| 'magenta'
+	| 'brightMagenta'
+	| 'red'
+	| 'brightRed'
 	| 'white'
-	| 'yellow';
+	| 'brightWhite'
+	| 'yellow'
+	| 'brightYellow';
 
 export type TextMode =
 	| 'blink'
 	| 'bright'
 	| 'dim'
+	| 'doubleUnderscore'
 	| 'hidden'
+	| 'italic'
 	| 'none'
 	| 'reverse'
+	| 'strikethrough'
 	| 'underscore';
 
 export { terminalStyleReference, Typer };

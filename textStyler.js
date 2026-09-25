@@ -1,9 +1,9 @@
 // @ts-nocheck
 import reference from './terminalStyleReference.js';
 
-const onSetMode = Symbol('onSetMode');
-const onSetForeground = Symbol('onSetForeground');
-const onSetBackground = Symbol('onSetBackground');
+const setMode = Symbol('setMode');
+const setForeground = Symbol('setForeground');
+const setBackground = Symbol('setBackground');
 
 const styleStrings = [
 	reference.reset,
@@ -12,61 +12,133 @@ const styleStrings = [
 	...Object.values(reference.foreground)
 ];
 
+function resolveColorFunctionArguments(plane = '', ...args) {
+	const code = plane === 'foreground' ? '38' : '48';
+	let color = '';
+	let text = undefined;
+
+	if (args.length === 1) {
+		color = `\x1B[${code};5;${args[0]}m`;
+	} else if (args.length === 2) {
+		text = args[0];
+		color = `\x1B[${code};5;${args[1]}m`;
+	} else if (args.length === 3) {
+		color = `\x1B[${code};2;${args[0]};${args[1]};${args[2]}m`;
+	} else if (args.length === 4) {
+		text = args[0];
+		color = `\x1B[${code};2;${args[1]};${args[2]};${args[3]}m`;
+	}
+
+	return [color, text];
+}
+
+class HighIntensityColor {
+	#setColorFunc;
+
+	constructor(setColorFunc = () => {}) {
+		this.#setColorFunc = setColorFunc;
+	}
+
+	black = (text) => this.#setColorFunc('brightBlack', text);
+	blue = (text) => this.#setColorFunc('brightBlue', text);
+	cyan = (text) => this.#setColorFunc('brightCyan', text);
+	gray = (text) => this.#setColorFunc('brightGray', text);
+	green = (text) => this.#setColorFunc('brightGreen', text);
+	magenta = (text) => this.#setColorFunc('brightMagenta', text);
+	red = (text) => this.#setColorFunc('brightRed', text);
+	white = (text) => this.#setColorFunc('brightWhite', text);
+	yellow = (text) => this.#setColorFunc('brightYellow', text);
+}
+
+class Background {
+	#setBackgroundFunc;
+
+	intense = new HighIntensityColor((color, text) =>
+		this.#setBackgroundFunc(color, text)
+	);
+
+	constructor(setBackgroundFunc = () => {}) {
+		this.#setBackgroundFunc = setBackgroundFunc;
+	}
+
+	black = (text) => this.#setBackgroundFunc('black', text);
+	blue = (text) => this.#setBackgroundFunc('blue', text);
+	cyan = (text) => this.#setBackgroundFunc('cyan', text);
+	gray = (text) => this.#setBackgroundFunc('gray', text);
+	green = (text) => this.#setBackgroundFunc('green', text);
+	magenta = (text) => this.#setBackgroundFunc('magenta', text);
+	red = (text) => this.#setBackgroundFunc('red', text);
+	white = (text) => this.#setBackgroundFunc('white', text);
+	yellow = (text) => this.#setBackgroundFunc('yellow', text);
+
+	color(...args) {
+		const [color, text] = resolveColorFunctionArguments('background', ...args);
+		return this.#setBackgroundFunc(color, text);
+	}
+}
+
 class TextStyler {
-	background = new Background();
+	background = new Background((color, text) =>
+		this[setBackground](color, text)
+	);
+	intense = new HighIntensityColor((color, text) =>
+		this[setForeground](color, text)
+	);
 
-	[onSetMode](mode, text) {
+	[setMode](mode, text) {
+		const modeCode = reference.mode[mode];
+
 		if (text === undefined) {
-			return new TextStylerChain()[mode]();
+			return new TextStylerChain({ mode: modeCode });
 		} else {
-			return `${reference.mode[mode]}${text}${reference.reset}`;
+			return `${modeCode}${text}${reference.reset}`;
 		}
 	}
 
-	[onSetForeground](color, text) {
+	[setForeground](color, text) {
+		const colorCode = color[0] === '\x1B' ? color : reference.foreground[color];
+
 		if (text === undefined) {
-			return new TextStylerChain()[color]();
+			return new TextStylerChain({ foreground: colorCode });
 		} else {
-			return `${reference.foreground[color]}${text}${reference.reset}`;
+			return `${colorCode}${text}${reference.reset}`;
 		}
 	}
 
-	[onSetBackground](color, text) {
+	[setBackground](color, text) {
+		const colorCode = color[0] === '\x1B' ? color : reference.background[color];
+
 		if (text === undefined) {
-			return new TextStylerChain()[
-				`bg${color[0].toUpperCase() + color.slice(1)}`
-			]();
+			return new TextStylerChain({ background: colorCode });
 		} else {
-			return `${reference.background[color]}${text}${reference.reset}`;
+			return `${colorCode}${text}${reference.reset}`;
 		}
 	}
 
-	blink = (text) => this[onSetMode]('blink', text);
-	bright = (text) => this[onSetMode]('bright', text);
-	dim = (text) => this[onSetMode]('dim', text);
-	hidden = (text) => this[onSetMode]('hidden', text);
-	reverse = (text) => this[onSetMode]('reverse', text);
-	underscore = (text) => this[onSetMode]('underscore', text);
+	blink = (text) => this[setMode]('blink', text);
+	bright = (text) => this[setMode]('bright', text);
+	dim = (text) => this[setMode]('dim', text);
+	doubleUnderscore = (text) => this[setMode]('doubleUnderscore', text);
+	hidden = (text) => this[setMode]('hidden', text);
+	italic = (text) => this[setMode]('italic', text);
+	reverse = (text) => this[setMode]('reverse', text);
+	strikethrough = (text) => this[setMode]('strikethrough', text);
+	underscore = (text) => this[setMode]('underscore', text);
 
-	black = (text) => this[onSetForeground]('black', text);
-	blue = (text) => this[onSetForeground]('blue', text);
-	cyan = (text) => this[onSetForeground]('cyan', text);
-	gray = (text) => this[onSetForeground]('gray', text);
-	green = (text) => this[onSetForeground]('green', text);
-	magenta = (text) => this[onSetForeground]('magenta', text);
-	red = (text) => this[onSetForeground]('red', text);
-	white = (text) => this[onSetForeground]('white', text);
-	yellow = (text) => this[onSetForeground]('yellow', text);
+	black = (text) => this[setForeground]('black', text);
+	blue = (text) => this[setForeground]('blue', text);
+	cyan = (text) => this[setForeground]('cyan', text);
+	gray = (text) => this[setForeground]('gray', text);
+	green = (text) => this[setForeground]('green', text);
+	magenta = (text) => this[setForeground]('magenta', text);
+	red = (text) => this[setForeground]('red', text);
+	white = (text) => this[setForeground]('white', text);
+	yellow = (text) => this[setForeground]('yellow', text);
 
-	bgBlack = (text) => this[onSetBackground]('black', text);
-	bgBlue = (text) => this[onSetBackground]('blue', text);
-	bgCyan = (text) => this[onSetBackground]('cyan', text);
-	bgGray = (text) => this[onSetBackground]('gray', text);
-	bgGreen = (text) => this[onSetBackground]('green', text);
-	bgMagenta = (text) => this[onSetBackground]('magenta', text);
-	bgRed = (text) => this[onSetBackground]('red', text);
-	bgWhite = (text) => this[onSetBackground]('white', text);
-	bgYellow = (text) => this[onSetBackground]('yellow', text);
+	color(...args) {
+		const [color, text] = resolveColorFunctionArguments('foreground', ...args);
+		return this[setForeground](color, text);
+	}
 
 	applyStyle({ text = '', textColor = '', bgColor = '', mode = '' } = {}) {
 		let textMode = '';
@@ -104,50 +176,34 @@ class TextStylerChain extends TextStyler {
 	#background = '';
 	#mode = '';
 
-	constructor() {
+	constructor({ foreground = '', background = '', mode = '' } = {}) {
 		super();
+
+		this.#foreground = foreground;
+		this.#background = background;
+		this.#mode = mode;
 	}
 
-	[onSetMode](mode = '', text = '') {
+	[setMode](mode = '', text = '') {
 		this.#mode += reference.mode[mode];
 		return text ? this.#returnText(text) : this;
 	}
 
-	[onSetForeground](color = '', text = '') {
-		this.#foreground = reference.foreground[color];
+	[setForeground](color = '', text = '') {
+		this.#foreground =
+			color[0] === '\x1B' ? color : reference.foreground[color];
 		return text ? this.#returnText(text) : this;
 	}
 
-	[onSetBackground](color = '', text = '') {
-		this.#background = reference.background[color];
+	[setBackground](color = '', text = '') {
+		this.#background =
+			color[0] === '\x1B' ? color : reference.background[color];
 		return text ? this.#returnText(text) : this;
 	}
 
 	#returnText(text = '') {
 		return `${this.#mode}${this.#background}${this.#foreground}${text}${reference.reset}`;
 	}
-}
-
-class Background {
-	#onSetBackground(color, text) {
-		if (text === undefined) {
-			return new TextStylerChain()[
-				`bg${color[0].toUpperCase() + color.slice(1)}`
-			]();
-		} else {
-			return `${reference.background[color]}${text}${reference.reset}`;
-		}
-	}
-
-	black = (text) => this.#onSetBackground('black', text);
-	blue = (text) => this.#onSetBackground('blue', text);
-	cyan = (text) => this.#onSetBackground('cyan', text);
-	gray = (text) => this.#onSetBackground('gray', text);
-	green = (text) => this.#onSetBackground('green', text);
-	magenta = (text) => this.#onSetBackground('magenta', text);
-	red = (text) => this.#onSetBackground('red', text);
-	white = (text) => this.#onSetBackground('white', text);
-	yellow = (text) => this.#onSetBackground('yellow', text);
 }
 
 class Typer extends TextStyler {
@@ -157,18 +213,20 @@ class Typer extends TextStyler {
 		super();
 	}
 
-	[onSetMode](mode, text = '') {
+	[setMode](mode = '', text = '') {
 		this.#text += reference.mode[mode] + text;
 		return this;
 	}
 
-	[onSetForeground](color, text = '') {
-		this.#text += reference.foreground[color] + text;
+	[setForeground](color = '', text = '') {
+		const colorCode = color[0] === '\x1B' ? color : reference.foreground[color];
+		this.#text += colorCode + text;
 		return this;
 	}
 
-	[onSetBackground](color, text = '') {
-		this.#text += reference.background[color] + text;
+	[setBackground](color = '', text = '') {
+		const colorCode = color[0] === '\x1B' ? color : reference.background[color];
+		this.#text += colorCode + text;
 		return this;
 	}
 
@@ -187,4 +245,4 @@ class Typer extends TextStyler {
 	}
 }
 
-export { TextStyler, Typer };
+export { TextStyler, Background, Typer };
