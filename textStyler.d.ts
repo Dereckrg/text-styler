@@ -102,8 +102,8 @@ class TextStyler {
 
 	applyStyle(options: {
 		text: string;
-		textColor?: TextColor;
-		bgColor?: BackgroundColor;
+		textColor?: TextColor | number | [number, number, number];
+		bgColor?: BackgroundColor | number | [number, number, number];
 		mode?: TextMode | TextMode[];
 	}): string;
 

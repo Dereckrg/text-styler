@@ -87,6 +87,34 @@ console.log(
 console.log(textStyler.background.intense.red('Applying style to a text'));
 console.log(textStyler.intense.red().underscore('Applying style to a text'));
 
+console.log(
+	textStyler.applyStyle({
+		text: 'Applying style to a text 256 fore ',
+		textColor: 127
+	})
+);
+
+console.log(
+	textStyler.applyStyle({
+		text: 'Applying style to a text 256 back',
+		bgColor: 209
+	})
+);
+
+console.log(
+	textStyler.applyStyle({
+		text: 'Applying style to a text RGB fore',
+		textColor: [30, 192, 78]
+	})
+);
+
+console.log(
+	textStyler.applyStyle({
+		text: 'Applying style to a text RGB back',
+		bgColor: [70, 63, 178]
+	})
+);
+
 function colorTest() {
 	let sample = 'Standard colors\n';
 
@@ -128,3 +156,19 @@ function colorTest() {
 }
 
 // colorTest();
+
+// console.log(' \u2581\u2581\u2581\u2581 ');
+
+// console.log(`\u2595${textStyler.background.red('    ')}\u258f`);
+
+// console.log(' \u2594\u2594\u2594\u2594 ');
+
+// console.log(
+// 	`\u2595${textStyler.background.red('\u2594\u2594\u2594\u2594')}\u258f`
+// );
+
+// console.log(`\u2595${textStyler.background.red('    ')}\u258f`);
+
+// console.log(
+// 	`\u2595${textStyler.background.red('\u2581\u2581\u2581\u2581')}\u258f`
+// );

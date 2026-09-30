@@ -153,13 +153,28 @@ class TextStyler {
 			}
 		}
 
+		if (textColor) {
+			if (Array.isArray(textColor)) {
+				textColor = `\x1B[38;2;${textColor[0]};${textColor[1]};${textColor[2]}m`;
+			} else if (typeof textColor === 'number') {
+				textColor = `\x1B[38;5;${textColor}m`;
+			} else {
+				textColor = reference.foreground[textColor] || '';
+			}
+		}
+
+		if (bgColor) {
+			if (Array.isArray(bgColor)) {
+				bgColor = `\x1B[48;2;${bgColor[0]};${bgColor[1]};${bgColor[2]}m`;
+			} else if (typeof bgColor === 'number') {
+				bgColor = `\x1B[48;5;${bgColor}m`;
+			} else {
+				bgColor = reference.foreground[bgColor] || '';
+			}
+		}
+
 		return (
-			reference.reset +
-			(reference.foreground[textColor] || '') +
-			(reference.background[bgColor] || '') +
-			textMode +
-			text +
-			reference.reset
+			reference.reset + textColor + bgColor + textMode + text + reference.reset
 		);
 	}
 
