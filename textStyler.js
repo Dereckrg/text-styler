@@ -169,7 +169,7 @@ class TextStyler {
 			} else if (typeof bgColor === 'number') {
 				bgColor = `\x1B[48;5;${bgColor}m`;
 			} else {
-				bgColor = reference.foreground[bgColor] || '';
+				bgColor = reference.background[bgColor] || '';
 			}
 		}
 
