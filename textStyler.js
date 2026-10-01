@@ -182,7 +182,39 @@ class TextStyler {
 		styleStrings.forEach((styleString) => {
 			text = text.replaceAll(styleString, '');
 		});
+
 		return text;
+	}
+
+	slice(text = '', start = 0, end = text.length) {
+		let textIndex = -1;
+		let slicedText = '';
+		let escapeCode = '';
+
+		for (let i = 0; i < text.length; i++) {
+			const char = text[i];
+
+			if (escapeCode) {
+				escapeCode += char;
+
+				if (char === 'm') {
+					slicedText += escapeCode;
+					escapeCode = '';
+				}
+			} else if (char === '\x1B') {
+				escapeCode += char;
+			} else {
+				textIndex++;
+
+				if (textIndex >= start && textIndex < end) {
+					slicedText += char;
+				} else if (textIndex + 1 === end) {
+					break;
+				}
+			}
+		}
+
+		return slicedText;
 	}
 }
 

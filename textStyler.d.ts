@@ -108,6 +108,8 @@ class TextStyler {
 	}): string;
 
 	removeStyle(text: string): string;
+
+	slice(text: string, start: number, end?: number): string;
 }
 
 class TextStylerChain extends TextStyler {}

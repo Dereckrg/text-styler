@@ -114,6 +114,21 @@ console.log(
 		bgColor: [70, 63, 178]
 	})
 );
+('ABCABCABC');
+console.log(
+	textStyler.slice(
+		'ABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
+		0,
+		6
+	)
+);
+console.log([
+	textStyler.slice(
+		'ABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
+		0,
+		6
+	)
+]);
 
 function colorTest() {
 	let sample = 'Standard colors\n';
