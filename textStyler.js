@@ -173,6 +173,10 @@ class TextStyler {
 			}
 		}
 
+		if (!textColor && !bgColor && !textMode) {
+			return text;
+		}
+
 		return (
 			reference.reset + textColor + bgColor + textMode + text + reference.reset
 		);
