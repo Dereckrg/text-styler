@@ -179,11 +179,24 @@ class TextStyler {
 	}
 
 	removeStyle(text = '') {
-		styleStrings.forEach((styleString) => {
-			text = text.replaceAll(styleString, '');
-		});
+		let cleanText = '';
+		let inEscapeCode = false;
 
-		return text;
+		for (let i = 0; i < text.length; i++) {
+			const char = text[i];
+
+			if (inEscapeCode) {
+				if (char === 'm') {
+					inEscapeCode = false;
+				}
+			} else if (char === '\x1B') {
+				inEscapeCode = true;
+			} else {
+				cleanText += char;
+			}
+		}
+
+		return cleanText;
 	}
 
 	slice(text = '', start = 0, end = text.length) {

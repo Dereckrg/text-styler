@@ -37,6 +37,7 @@ console.log(textStyler.background.blue().dim().red('VIA .background'));
 
 const styledText = textStyler.background.blue().dim().red('Style Text');
 console.log(styledText);
+console.log([styledText]);
 console.log(textStyler.removeStyle(styledText));
 
 console.log(
@@ -122,6 +123,7 @@ console.log(
 		6
 	)
 );
+
 console.log([
 	textStyler.slice(
 		'ABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
@@ -129,6 +131,12 @@ console.log([
 		6
 	)
 ]);
+
+console.log(
+	textStyler.removeStyle(
+		'ABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m'
+	)
+);
 
 function colorTest() {
 	let sample = 'Standard colors\n';
