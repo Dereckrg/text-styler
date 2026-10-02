@@ -110,6 +110,12 @@ class TextStyler {
 	removeStyle(text: string): string;
 
 	slice(text: string, start: number, end?: number): string;
+
+	padStart(text: string, maxLength: number, fillString: string): string;
+
+	padEnd(text: string, maxLength: number, fillString: string): string;
+
+	padArround(text: string, maxLength: number, fillString: string): string;
 }
 
 class TextStylerChain extends TextStyler {}

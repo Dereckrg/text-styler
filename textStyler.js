@@ -233,6 +233,67 @@ class TextStyler {
 
 		return slicedText;
 	}
+
+	padStart(text = '', maxLength = 0, fillString = '') {
+		if (!fillString) return text;
+
+		const textLength = this.removeStyle(text).length;
+		if (maxLength <= textLength) return text;
+
+		const padding = fillString.repeat(maxLength - textLength);
+
+		if (text[0] !== '\x1B') return padding + text;
+
+		for (let i = 1; i < text.length; i++) {
+			const char = text[i];
+
+			if (char === 'm') {
+				if (text[i + 1] !== '\x1B') {
+					return text.slice(0, i + 1) + padding + text.slice(i + 1);
+				}
+			}
+		}
+	}
+
+	padEnd(text = '', maxLength = 0, fillString = '') {
+		if (!fillString) return text;
+
+		const textLength = this.removeStyle(text).length;
+		if (maxLength <= textLength) return text;
+
+		const padding = fillString.repeat(maxLength - textLength);
+
+		let lastEscapeCode = text.length;
+
+		for (let i = text.length - 1; i > 0; i--) {
+			const char = text[i];
+
+			if (char === '\x1B') {
+				for (let j = i + 1; j < lastEscapeCode; j++) {
+					const char = text[j];
+
+					if (char === 'm' && text[j + 1] && text[j + 1] !== '\x1B') {
+						return (
+							text.slice(0, lastEscapeCode) +
+							padding +
+							text.slice(lastEscapeCode)
+						);
+					}
+				}
+
+				lastEscapeCode = i;
+			}
+		}
+
+		return text + padding;
+	}
+
+	padArround(text = '', maxLength = 0, fillString = '') {
+		const textLength = this.removeStyle(text).length;
+		const padding = maxLength - textLength;
+		const padStart = this.padStart(text, textLength + padding / 2, fillString);
+		return this.padEnd(padStart, maxLength, fillString);
+	}
 }
 
 class TextStylerChain extends TextStyler {

@@ -138,6 +138,96 @@ console.log(
 	)
 );
 
+console.log('PAD START');
+
+console.log(textStyler.padStart('ABCABCABC', 12, '*'));
+
+console.log(textStyler.padStart('ABCABCABC', 2, '*'));
+
+console.log(
+	textStyler.padStart(
+		'\x1B[100mABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
+		12,
+		'*'
+	)
+);
+
+console.log(
+	textStyler.padStart(
+		'ABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
+		12,
+		'*'
+	)
+);
+
+console.log(
+	textStyler.padStart(
+		'\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[0m',
+		12,
+		'*'
+	)
+);
+
+console.log('PAD END');
+
+console.log(textStyler.padEnd('ABCABCABC', 12, '*'));
+
+console.log(textStyler.padEnd('ABCABCABC', 2, '*'));
+
+console.log(
+	textStyler.padEnd(
+		'\x1B[100mABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
+		12,
+		'*'
+	)
+);
+
+console.log(
+	textStyler.padEnd(
+		'\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0mABC',
+		12,
+		'*'
+	)
+);
+
+console.log(
+	textStyler.padEnd(
+		'\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[0m',
+		12,
+		'*'
+	)
+);
+
+console.log('PAD ARROUND');
+
+console.log(textStyler.padArround('ABCABCABC', 12, '*'));
+
+console.log(textStyler.padArround('ABCABCABC', 2, '*'));
+
+console.log(
+	textStyler.padArround(
+		'\x1B[100mABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
+		12,
+		'*'
+	)
+);
+
+console.log(
+	textStyler.padArround(
+		'\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0mABC',
+		12,
+		'*'
+	)
+);
+
+console.log(
+	textStyler.padArround(
+		'\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[0m',
+		12,
+		'*'
+	)
+);
+
 function colorTest() {
 	let sample = 'Standard colors\n';
 
