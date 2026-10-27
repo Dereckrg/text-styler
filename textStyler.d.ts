@@ -109,10 +109,12 @@ class TextStyler {
 
 	removeStyle(text: string): string;
 
-	getANSIEscapeCodes(
-		text: string,
-		options?: { cursor?: boolean; eraser?: boolean; style?: boolean }
-	): string[];
+	getANSIEscapeCodes(text: string): {
+		style: string[];
+		cursor: string[];
+		eraser: string[];
+		escapeCodes: string[];
+	};
 
 	slice(text: string, start: number, end?: number): string;
 

@@ -203,7 +203,7 @@ class TextStyler {
 		return cleanText;
 	}
 
-	getANSIEscapeCodes(text = '', options) {
+	getANSIEscapeCodes(text = '') {
 		const escapeCodes = [];
 		const style = [];
 		const cursor = [];
@@ -284,15 +284,12 @@ class TextStyler {
 			}
 		}
 
-		if (options) {
-			return [
-				...(options.style ? style : []),
-				...(options.cursor ? cursor : []),
-				...(options.eraser ? eraser : [])
-			];
-		}
-
-		return escapeCodes;
+		return {
+			style,
+			cursor,
+			eraser,
+			escapeCodes
+		};
 	}
 
 	slice(text = '', start = 0, end = text.length) {
