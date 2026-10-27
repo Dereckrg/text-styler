@@ -203,6 +203,98 @@ class TextStyler {
 		return cleanText;
 	}
 
+	getANSIEscapeCodes(text = '', options) {
+		const escapeCodes = [];
+		const style = [];
+		const cursor = [];
+		const eraser = [];
+		let escapeCode = '';
+
+		for (let i = 0; i < text.length; i++) {
+			const char = text[i];
+			escapeCode = '';
+
+			if (char === '\x1B') {
+				escapeCode = char;
+				i++;
+				const nextChar = text[i];
+				escapeCode += nextChar;
+
+				if (nextChar === 'c') {
+					eraser.push(escapeCode);
+					escapeCodes.push(escapeCode);
+				} else if (nextChar === '[') {
+					i++;
+					const nextChar = text[i];
+					escapeCode += nextChar;
+
+					if (nextChar === '{') {
+						for (let j = i + 1; j < text.length; j++) {
+							i++;
+							const char = text[j];
+							escapeCode += char;
+
+							if (char === '}') {
+								j++;
+								i++;
+								const nextChar = text[j];
+								escapeCode += nextChar;
+
+								if (nextChar !== ';') {
+									cursor.push(escapeCode);
+									escapeCodes.push(escapeCode);
+									break;
+								}
+							}
+						}
+					} else if (!isNaN(+nextChar)) {
+						i++;
+						const nextChar = text[i];
+						escapeCode += nextChar;
+
+						if (nextChar === 'J' || nextChar === 'K') {
+							eraser.push(escapeCode);
+							escapeCodes.push(escapeCode);
+						} else if (nextChar === 'm') {
+							style.push(escapeCode);
+							escapeCodes.push(escapeCode);
+						} else {
+							for (let j = i + 1; j < text.length; j++) {
+								i++;
+								const char = text[j];
+								escapeCode += char;
+
+								if (char === 'm') {
+									style.push(escapeCode);
+									escapeCodes.push(escapeCode);
+									break;
+								}
+							}
+						}
+					} else {
+						if (nextChar === 'K') {
+							eraser.push(escapeCode);
+							escapeCodes.push(escapeCode);
+						} else {
+							cursor.push(escapeCode);
+							escapeCodes.push(escapeCode);
+						}
+					}
+				}
+			}
+		}
+
+		if (options) {
+			return [
+				...(options.style ? style : []),
+				...(options.cursor ? cursor : []),
+				...(options.eraser ? eraser : [])
+			];
+		}
+
+		return escapeCodes;
+	}
+
 	slice(text = '', start = 0, end = text.length) {
 		let textIndex = -1;
 		let slicedText = '';

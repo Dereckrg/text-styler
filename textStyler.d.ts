@@ -109,6 +109,11 @@ class TextStyler {
 
 	removeStyle(text: string): string;
 
+	getANSIEscapeCodes(
+		text: string,
+		options?: { cursor?: boolean; eraser?: boolean; style?: boolean }
+	): string[];
+
 	slice(text: string, start: number, end?: number): string;
 
 	padStart(text: string, maxLength: number, fillString: string): string;
