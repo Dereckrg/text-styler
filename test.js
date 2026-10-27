@@ -232,6 +232,11 @@ console.log(
 		'abc\x1B[100mxxxx\x1B[101m\x1Bdd[102masdasd\x1bcaushdi\x1b[2Jaiushdsa\x1b[3J\x1b[Kfsidfhisdf\n\n\x1b[{32}A\x1b[{3}Baosjdosad\x1b[{3223}c\x1b[{32}D\x1b[Hawfr\x1b[s\x1b[u\x1b[{232};{232}H\x1b[{232}{232}Hdawdawd\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[0m'
 	)
 );
+console.log(
+	textStyler.removeANSIEscapeCodes(
+		'abc\x1B[100mxxxx\x1B[101m\x1Bdd[102masdasd\x1bcaushdi\x1b[2Jaiushdsa\x1b[3J\x1b[Kfsidfhisdf\n\n\x1b[{32}A\x1b[{3}Baosjdosad\x1b[{3223}c\x1b[{32}D\x1b[Hawfr\x1b[s\x1b[u\x1b[{232};{232}H\x1b[{232}{232}Hdawdawd\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[0m'
+	)
+);
 
 function colorTest() {
 	let sample = 'Standard colors\n';

@@ -109,6 +109,8 @@ class TextStyler {
 
 	removeStyle(text: string): string;
 
+	removeANSIEscapeCodes(text: string): string;
+
 	getANSIEscapeCodes(text: string): {
 		style: string[];
 		cursor: string[];

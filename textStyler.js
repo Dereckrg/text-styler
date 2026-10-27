@@ -203,6 +203,46 @@ class TextStyler {
 		return cleanText;
 	}
 
+	removeANSIEscapeCodes(text = '') {
+		let cleanText = '';
+		let inEscapeCode = false;
+
+		for (let i = 0; i < text.length; i++) {
+			const char = text[i];
+
+			if (char === '\x1B') {
+				const nextChar = text[++i];
+
+				if (nextChar === '[') {
+					const nextChar = text[++i];
+
+					if (nextChar === '{') {
+						for (++i; i < text.length; i++) {
+							const char = text[i];
+
+							if (char === '}') {
+								const nextChar = text[++i];
+								if (nextChar !== ';') break;
+							}
+						}
+					} else if (!isNaN(+nextChar)) {
+						for (++i; i < text.length; i++) {
+							const char = text[i];
+
+							if (char === 'J' || char === 'K' || char === 'm') {
+								break;
+							}
+						}
+					}
+				}
+			} else {
+				cleanText += char;
+			}
+		}
+
+		return cleanText;
+	}
+
 	getANSIEscapeCodes(text = '') {
 		const escapeCodes = [];
 		const style = [];
@@ -216,28 +256,23 @@ class TextStyler {
 
 			if (char === '\x1B') {
 				escapeCode = char;
-				i++;
-				const nextChar = text[i];
+				const nextChar = text[++i];
 				escapeCode += nextChar;
 
 				if (nextChar === 'c') {
 					eraser.push(escapeCode);
 					escapeCodes.push(escapeCode);
 				} else if (nextChar === '[') {
-					i++;
-					const nextChar = text[i];
+					const nextChar = text[++i];
 					escapeCode += nextChar;
 
 					if (nextChar === '{') {
-						for (let j = i + 1; j < text.length; j++) {
-							i++;
-							const char = text[j];
+						for (++i + 1; i < text.length; i++) {
+							const char = text[i];
 							escapeCode += char;
 
 							if (char === '}') {
-								j++;
-								i++;
-								const nextChar = text[j];
+								const nextChar = text[++i];
 								escapeCode += nextChar;
 
 								if (nextChar !== ';') {
@@ -248,8 +283,7 @@ class TextStyler {
 							}
 						}
 					} else if (!isNaN(+nextChar)) {
-						i++;
-						const nextChar = text[i];
+						const nextChar = text[++i];
 						escapeCode += nextChar;
 
 						if (nextChar === 'J' || nextChar === 'K') {
@@ -259,9 +293,8 @@ class TextStyler {
 							style.push(escapeCode);
 							escapeCodes.push(escapeCode);
 						} else {
-							for (let j = i + 1; j < text.length; j++) {
-								i++;
-								const char = text[j];
+							for (++i; i < text.length; i++) {
+								const char = text[i];
 								escapeCode += char;
 
 								if (char === 'm') {
