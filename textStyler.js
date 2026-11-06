@@ -17,16 +17,31 @@ function resolveColorFunctionArguments(plane = '', ...args) {
 	let color = '';
 	let text = undefined;
 
-	if (args.length === 1) {
-		color = `\x1B[${code};5;${args[0]}m`;
-	} else if (args.length === 2) {
-		text = args[0];
-		color = `\x1B[${code};5;${args[1]}m`;
-	} else if (args.length === 3) {
+	if (args.length === 3) {
 		color = `\x1B[${code};2;${args[0]};${args[1]};${args[2]}m`;
 	} else if (args.length === 4) {
 		text = args[0];
 		color = `\x1B[${code};2;${args[1]};${args[2]};${args[3]}m`;
+	} else {
+		let colorArg;
+
+		if (args.length === 1) {
+			colorArg = args[0];
+		} else if (args.length === 2) {
+			text = args[0];
+			colorArg = args[1];
+		}
+
+		if (typeof colorArg === 'number') {
+			color = `\x1B[${code};5;${colorArg}m`;
+		} else if (typeof colorArg === 'string') {
+			const hex = colorArg.length < 7 ? colorArg.padStart(7, '0') : colorArg;
+			const red = Number('0x' + hex[1] + hex[2]);
+			const green = Number('0x' + hex[3] + hex[4]);
+			const blue = Number('0x' + hex[5] + hex[6]);
+
+			color = `\x1B[${code};2;${red};${green};${blue}m`;
+		}
 	}
 
 	return [color, text];
@@ -410,7 +425,7 @@ class TextStyler {
 		return text + padding;
 	}
 
-	padArround(text = '', maxLength = 0, fillString = '') {
+	padAround(text = '', maxLength = 0, fillString = '') {
 		const textLength = this.removeStyle(text).length;
 		const padding = maxLength - textLength;
 		const padStart = this.padStart(text, textLength + padding / 2, fillString);

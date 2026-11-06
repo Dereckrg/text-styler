@@ -48,8 +48,10 @@ class Background<T> {
 	yellow(text: string): string;
 
 	color(color: number): TextStylerChain;
+	color(color: string): TextStylerChain;
 	color(red: number, green: number, blue: number): TextStylerChain;
 	color(text: string, color: number): string;
+	color(text: string, color: string): string;
 	color(text: string, red: number, green: number, blue: number): string;
 }
 
@@ -96,8 +98,10 @@ class TextStyler {
 	yellow(text: string): string;
 
 	color(color: number): TextStylerChain;
+	color(color: string): TextStylerChain;
 	color(red: number, green: number, blue: number): TextStylerChain;
 	color(text: string, color: number): string;
+	color(text: string, color: string): string;
 	color(text: string, red: number, green: number, blue: number): string;
 
 	applyStyle(options: {
@@ -124,7 +128,7 @@ class TextStyler {
 
 	padEnd(text: string, maxLength: number, fillString: string): string;
 
-	padArround(text: string, maxLength: number, fillString: string): string;
+	padAround(text: string, maxLength: number, fillString: string): string;
 }
 
 class TextStylerChain extends TextStyler {}

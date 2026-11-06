@@ -200,12 +200,12 @@ console.log(
 
 console.log('PAD ARROUND');
 
-console.log(textStyler.padArround('ABCABCABC', 12, '*'));
+console.log(textStyler.padAround('ABCABCABC', 12, '*'));
 
-console.log(textStyler.padArround('ABCABCABC', 2, '*'));
+console.log(textStyler.padAround('ABCABCABC', 2, '*'));
 
 console.log(
-	textStyler.padArround(
+	textStyler.padAround(
 		'\x1B[100mABC\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0m',
 		12,
 		'*'
@@ -213,7 +213,7 @@ console.log(
 );
 
 console.log(
-	textStyler.padArround(
+	textStyler.padAround(
 		'\x1B[100mABC\x1B[100m\x1B[100m\x1B[100mABC\x1B[100m\x1B[100m\x1B[0mABC',
 		12,
 		'*'
@@ -221,7 +221,7 @@ console.log(
 );
 
 console.log(
-	textStyler.padArround(
+	textStyler.padAround(
 		'\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[0m',
 		12,
 		'*'
@@ -237,6 +237,10 @@ console.log(
 		'abc\x1B[100mxxxx\x1B[101m\x1Bdd[102masdasd\x1bcaushdi\x1b[2Jaiushdsa\x1b[3J\x1b[Kfsidfhisdf\n\n\x1b[{32}A\x1b[{3}Baosjdosad\x1b[{3223}c\x1b[{32}D\x1b[Hawfr\x1b[s\x1b[u\x1b[{232};{232}H\x1b[{232}{232}Hdawdawd\x1B[100m\x1B[100m\x1B[100m\x1B[100m\x1B[0m'
 	)
 );
+
+console.log(textStyler.color('#FFFFFF').bright('White text'));
+console.log(textStyler.color('Blue text', '#000AAA'));
+console.log(textStyler.color('Green text', '#014236'));
 
 function colorTest() {
 	let sample = 'Standard colors\n';
@@ -278,7 +282,7 @@ function colorTest() {
 	console.log(sample);
 }
 
-// colorTest();
+colorTest();
 
 // console.log(' \u2581\u2581\u2581\u2581 ');
 
